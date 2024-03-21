@@ -1,0 +1,39 @@
+--- dlocate.default.orig	2016-06-21 05:49:19.000000000 +0200
++++ dlocate.default	2024-03-21 17:28:35.450456632 +0100
+@@ -1,9 +1,10 @@
+ # You can enable compression if you are short on disk space and don't
+-# mind dlocate being about 10 times slower.
++# mind dlocate being about 10 times slower. (zstd decompress=10x gzip)
+ #
+-# 1 = enable compression
++# 1 = enable gzip compression
++# 2 = enable zstd compression
+ # anything else = disable compression
+ #
+ # disabled by default.
+ 
+-COMPRESS_DLOCATE="0"
++COMPRESS_DLOCATE="2"
+--- updatedb.orig	2024-03-21 14:50:31.873519581 +0100
++++ updatedb	2024-03-21 17:30:12.732263026 +0100
+@@ -128,6 +128,10 @@
+     system('gzip','--quiet','--force',$dbfile);
+     rename("$dbfile.gz", $dbfile);
+ };
++if ($compress eq "2") {
++    system('zstd','--quiet','--force',$dbfile);
++    rename("$dbfile.zst", $dbfile);
++};
+ 
+ open(STAMPS, '>', "$stampsfile.new") or die "$program: can't create stamps file $stampsfile.new: $!\n";
+ print STAMPS "$stamps{$_}:$_\n" for keys %stamps;
+--- dlocate.orig	2024-03-21 14:49:32.346598403 +0100
++++ dlocate	2024-03-21 17:30:04.556138941 +0100
+@@ -15,6 +15,7 @@
+ GREP='grep'
+ [ -e /etc/default/dlocate ] && . /etc/default/dlocate
+ [ "$COMPRESS_DLOCATE" = "1" ] && GREP='zgrep'
++[ "$COMPRESS_DLOCATE" = "2" ] && GREP='zstdgrep'
+ 
+ 
+ function usage {

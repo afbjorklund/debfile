@@ -1,0 +1,44 @@
+# Original query
+
+$ time dpkg-query -W $(dpkg -S /usr/bin/podman | cut -d: -f1)
+podman	100:3.4.2-5
+
+real	0m0,857s
+user	0m0,737s
+sys	0m0,124s
+
+# Using dlocatedb
+
+$ time dlocate -l '^..[[:space:]]'$(dlocate /usr/bin/podman | head -1 | cut -d: -f1)'[[:space:]]' | tail -1
+ii  podman                              100:3.4.2-5:amd64                   Manage pods, containers and container images.
+
+real	0m0,160s
+user	0m0,154s
+sys	0m0,098s
+
+# Using debfile.db
+
+$ time ./debfile.sh /usr/bin/podman
+podman_100:3.4.2-5:amd64
+
+real	0m0,047s
+user	0m0,005s
+sys	0m0,008s
+$ time ./debfile.py /usr/bin/podman
+podman_100:3.4.2-5:amd64
+
+real	0m0,033s
+user	0m0,024s
+sys	0m0,009s
+$ time ./debfile.pl /usr/bin/podman
+podman_100:3.4.2-5:amd64
+
+real	0m0,015s
+user	0m0,014s
+sys	0m0,000s
+$ time ./debfile /usr/bin/podman
+podman_100:3.4.2-5:amd64
+
+real	0m0,005s
+user	0m0,005s
+sys	0m0,000s
