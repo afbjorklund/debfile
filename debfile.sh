@@ -1,6 +1,6 @@
 #!/bin/sh
 
-database="debfile.db"
+database="/var/cache/debfile.db"
 query=$1
 
 pkg=$(gdbmtool -r $database fetch "$query" 2>/dev/null)

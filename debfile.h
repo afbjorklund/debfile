@@ -1,3 +1,3 @@
 #ifndef DBFILE
-#define DBFILE "debfile.db"
+#define DBFILE "/var/cache/debfile.db"
 #endif

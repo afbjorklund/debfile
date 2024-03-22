@@ -21,7 +21,8 @@ use GDBM_File;
 
 my $dbfile='/var/lib/dlocate/dlocatedb';
 my $dpkglist='/var/lib/dlocate/dpkg-list';
-my $database='debfile.db';
+#my $database='debfile.db';
+my $database='/var/cache/debfile.db';
 
 my $cat = 'cat';
 my $gzip = !system("gzip --list $dbfile >/dev/null 2>&1");
@@ -53,7 +54,7 @@ if (open(DLOCATEDB,"$cat $dbfile|")) {
 };
 
 my %dbm;
-tie %dbm, 'GDBM_File', $database, GDBM_WRCREAT, 0640
+tie %dbm, 'GDBM_File', $database, GDBM_WRCREAT, 0644
     or die "$GDBM_File::gdbm_errno";
 for (sort keys %ver){
 	$dbm{$_} = $ver{$_};
