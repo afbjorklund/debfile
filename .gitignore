@@ -1,3 +1,5 @@
 *.o
 debfile
+dlocatedb
+dpkg-list
 debfile.db
