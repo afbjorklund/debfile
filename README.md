@@ -18,6 +18,16 @@ Use zstd instead, see: dlocate-zstd.diff
 
 Still compresses 10x, but runs 10x faster
 
+## grep
+
+For reasons why dlocate is using text files and `grep`, instead of `locate`:
+
+<https://jvns.ca/blog/2015/03/05/how-the-locate-command-works-and-lets-rewrite-it-in-one-minute/>
+
+The debfile "database" maps from paths to packages, and packages to versions.
+
+But since it doesn't use regular expressions, it can be converted into a dbm.
+
 ## cron
 
 The dlocatedb is normally updated from `/etc/cron.daily/dlocate`
