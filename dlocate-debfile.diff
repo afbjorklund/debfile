@@ -1,0 +1,10 @@
+--- update-dlocatedb.orig	2024-03-21 17:43:54.933491850 +0100
++++ update-dlocatedb	2024-03-22 18:29:33.903516746 +0100
+@@ -56,6 +56,7 @@
+ if [ -n "$files" ] ; then
+   # update dlocate database
+   test -x /usr/share/dlocate/updatedb && /usr/share/dlocate/updatedb >/dev/null
++  test -x /usr/share/dlocate/convertdb && /usr/share/dlocate/convertdb >/dev/null
+ fi
+ 
+ if [ -n "$pkgs" ] ; then

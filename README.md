@@ -17,3 +17,13 @@ But compressing it with gzip, makes dlocate run much slower (like 10x)
 Use zstd instead, see: dlocate-zstd.diff
 
 Still compresses 10x, but runs 10x faster
+
+## cron
+
+The dlocatedb is normally updated from `/etc/cron.daily/dlocate`
+
+You can update the debfile.db as well, from the same daily job.
+
+Something like this: dlocate-debfile.diff
+
+Or run `sudo /usr/share/dlocate/convertdb`.
