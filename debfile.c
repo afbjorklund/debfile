@@ -21,6 +21,7 @@ main (int argc, char **argv)
     {
       fprintf (stderr, "can't open database: %s\n",
                gdbm_strerror (gdbm_errno));
+      return 3;
     }
 
   path.dptr = argv[1];
