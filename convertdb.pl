@@ -58,10 +58,10 @@ tie %dbm, 'GDBM_File', $database, GDBM_WRCREAT, 0644
     or die "$GDBM_File::gdbm_errno";
 for (sort keys %pkg){
 	$dbm{$_} = $pkg{$_};
-	#print("$_: $pkg{$_}\n");
+	print("$_: $pkg{$_}\n") if $ENV{'DEBFILE_TEXT'};
 }
 for (sort keys %ver){
 	$dbm{$_} = $ver{$_};
-	#print("$_: $ver{$_}\n");
+	print("$_: $ver{$_}\n") if $ENV{'DEBFILE_TEXT'};
 }
 untie %dbm;
