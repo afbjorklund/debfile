@@ -30,25 +30,25 @@ $cat = 'zcat' if $gzip;
 my $zstd = !system("zstd --list $dbfile >/dev/null 2>&1");
 $cat = 'zstdcat' if $zstd;
 
-my %pkg;
+my %ver;
 if (open(DPKGLIST,'<', $dpkglist)) {
     while (<DPKGLIST>) {
         chomp;
         next if (/^=$/);
         my ($st, $package,$version) = split /\s/;
 	next unless ($st eq 'ii');
-	$pkg{$package} = "$version";
+	$ver{$package} = "$version";
     };
     close(DPKGLIST);
 };
 
-my %ver;
+my %pkg;
 if (open(DLOCATEDB,"$cat $dbfile|")) {
     while (<DLOCATEDB>) {
         chomp;
         my ($package,$path) = split /: /;
 	next if ($path eq '/.');
-	$ver{$path} = $package;
+	$pkg{$path} = $package;
     };
     close(DLOCATEDB);
 };
@@ -56,12 +56,12 @@ if (open(DLOCATEDB,"$cat $dbfile|")) {
 my %dbm;
 tie %dbm, 'GDBM_File', $database, GDBM_WRCREAT, 0644
     or die "$GDBM_File::gdbm_errno";
-for (sort keys %ver){
-	$dbm{$_} = $ver{$_};
-	#print("$_: $ver{$_}\n");
-}
 for (sort keys %pkg){
 	$dbm{$_} = $pkg{$_};
 	#print("$_: $pkg{$_}\n");
+}
+for (sort keys %ver){
+	$dbm{$_} = $ver{$_};
+	#print("$_: $ver{$_}\n");
 }
 untie %dbm;
