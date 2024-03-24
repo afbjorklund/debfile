@@ -28,6 +28,16 @@ The debfile "database" maps from paths to packages, and packages to versions.
 
 But since it doesn't use regular expressions, it can be converted into a dbm.
 
+## text
+
+For debugging purposes or other experiments, you can make it output text:
+
+`DEBFILE_TEXT=1 ./convertdb.pl > debfiledb`
+
+The format is actually YAML, and can be converted to e.g. JSON using `yq`.
+
+Or one can use grep instead of gdbm, just like with the dlocate database.
+
 ## cron
 
 The dlocatedb is normally updated from `/etc/cron.daily/dlocate`

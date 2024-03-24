@@ -16,6 +16,15 @@ real	0m0,160s
 user	0m0,154s
 sys	0m0,098s
 
+# Using debfiledb
+
+$ time ./grep.sh /usr/bin/podman
+podman_100:3.4.2-5:amd64
+
+real	0m0,085s
+user	0m0,057s
+sys	0m0,034s
+
 # Using debfile.db
 
 $ time ./debfile.sh /usr/bin/podman
