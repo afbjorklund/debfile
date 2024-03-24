@@ -2,7 +2,7 @@
 
 Returns which `dpkg` package owns a particular file, and its version too.
 
-Similar to `dpkg -S` and `dpkg-query -W`, but much faster (uses dlocate).
+Similar to `dpkg -S` and `dpkg-query -W`, but much faster (uses [dlocate](https://github.com/afbjorklund/dlocate)).
 
 The deb equivalent of running `rpm -qf`.
 
