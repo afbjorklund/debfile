@@ -8,6 +8,7 @@ query = sys.argv[1]
 
 dbm = dbm.gnu.open(database, 'r', 0o444)
 try:
-    print(dbm[dbm[query]].decode("ascii"))
+    pkg = dbm[query].decode('ascii')
+    print("%s_%s" % (pkg, dbm[pkg].decode('ascii')))
 except KeyError:
     sys.exit(1)

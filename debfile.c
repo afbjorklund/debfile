@@ -45,6 +45,8 @@ main (int argc, char **argv)
   version = gdbm_fetch (gdbf, package);
   if (version.dptr != NULL)
     {
+      fwrite (package.dptr, package.dsize, 1, stdout);
+      putchar ('_');
       fwrite (version.dptr, version.dsize, 1, stdout);
       putchar ('\n');
       status = 0;
