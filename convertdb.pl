@@ -35,7 +35,7 @@ if (open(DPKGLIST,'<', $dpkglist)) {
     while (<DPKGLIST>) {
         chomp;
         next if (/^=$/);
-        my ($st, $package,$version) = split /\s/;
+        my ($st, $package,$version) = split /\s+/;
 	next unless ($st eq 'ii');
 	$ver{$package} = "$version";
     };
